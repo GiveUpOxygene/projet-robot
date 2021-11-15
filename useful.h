@@ -1,4 +1,36 @@
 #include <math.h>
+#include <stdlib.h>
+
+typedef struct Vector2 Vector2;
+struct Vector2
+{
+    float x; float y;
+};
+
+Vector2 AddVector2(const Vector2* a, const Vector2* b, Vector2* result)
+{
+    result->x = a->x + b->x;
+    result->y = a->y + b->y;
+    return *result;
+}
+Vector2 SubVector2(const Vector2* a, const Vector2* b, Vector2* result)
+{
+    result->x = a->x - b->x;
+    result->y = a->y - b->y;
+    return *result;
+}
+Vector2 MultVector2(const Vector2* a, const Vector2* b, Vector2* result)
+{
+    result->x = a->x * b->x;
+    result->y = a->y * b->y;
+    return *result;
+}
+Vector2 DivVector2(const Vector2* a, const Vector2* b, Vector2* result)
+{
+    result->x = a->x / b->x;
+    result->y = a->y / b->y;
+    return *result;
+}
 
 int PGCD(int a, int b){
     int r;
@@ -15,15 +47,39 @@ int RandInt(int a, int b){
 	return rand()%(b - a + 1) + a;
 }
 
-void PolaireToCart(float coord_pol[], float coord_cart[]){ //coord_pol est l'entrée et coord_cart est renvoyée. coord_cart est censée etre vide.
+float RandFloat(float a, float b)
+{
+    return (rand()/RAND_MAX) * (b - a) + a;
+}
+
+Vector2* RandomVector(Vector2* vector)
+{
+    float norme = RandFloat((float)0, (float)1);
+    float angle = RandFloat((float)0, 2 * M_PI);
+    vector->x = norme * cosf(angle);
+    vector->y = norme * sinf(angle);
+    return vector;
+}
+
+//coord_pol = [r, téta] est l'entrée et coord_cart = [x, y] est renvoyée. coord_cart est censée etre vide en début de fonction.
+void PolaireToCart(float coord_pol[], float coord_cart[]){ 
     coord_cart[0] = coord_pol[0] * cosf(coord_pol[1]);
     coord_cart[1] = coord_pol[0] * sinf(coord_pol[1]);
+}
+
+//coord_cart = [x, y] est l'entrée et coord_pol = [r, téta] est renvoyée. coord_pol est censée etre vide en début de fonction.
+void CartToPolaire(float coord_cart[], float coord_pol[])
+{
+    coord_pol[0] = sqrtf((coord_cart[0] * coord_cart[0]) + (coord_cart[1] * coord_cart[1]));
+    coord_pol[1] = 2 * atanf(coord_cart[1]/(coord_cart[0] + (coord_pol[0])));
 }
 
 void AddVect(float coord_cart[][2], int longueur, float somme_vect[]){
     //coord_cart est un tableau de vecteurs avec tous les vecteurs à additionner. tous les vecteurs doivent etre en coordonnées cartésiennes.
     //longueur est la longueur de ce tableau
-    //somme_vect est le résultat de cette addition
+    //somme_vect est le résultat de cette addition, vide au début de la fonction
+    somme_vect[0] = 0;
+    somme_vect[1] = 0;
     for (int i = 0; i < longueur; i++) {
         somme_vect[0] += coord_cart[i][0];
         somme_vect[1] += coord_cart[i][1];
