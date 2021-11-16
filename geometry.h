@@ -29,7 +29,7 @@ bool IsParallele(Segment* seg1, Segment* seg2)
     Vector2* v1; Vector2* v2;
     Vector2 a = SubVector2(&(seg1->B), &(seg1->A), v1);
     Vector2 b = SubVector2(&(seg2->B), &(seg2->A), v2);
-    return !IsCollinear(&a, &b);
+    return !IsCollinear(&a, &b); //pourquoi renvoyer le contraire de IsCollinear?
 }
 
 // Renvoie le segment passant à peu près par tout les points(coor cartésien) de la liste points, seg doit etre vide au début de la fonction mais pas null
@@ -51,7 +51,7 @@ Segment* ToSegment(const Vector2 points[], int length, Segment* seg)
         if(points[i].x < indexXMin)
         {
             indexXMin = i;
-        } 
+        }
         else if(points[i].x > indexXMax)
         {
             indexXMax = i;

@@ -15,50 +15,6 @@
 #include <stdbool.h>
 #include <math.h>
 
-/*
-void obstacles_avoidance_mode() {
-  if(func_mode == ObstaclesAvoidance){
-    servo.write(90);
-    delays(500);
-    middleDistance = getDistance();
-    if(middleDistance <= 40) {
-      stop();
-      delays(500);
-      servo.write(10);
-      delays(1000);
-      rightDistance = getDistance();
-
-      delays(500);
-      servo.write(90);
-      delays(1000);
-      servo.write(170);
-      delays(1000);
-      leftDistance = getDistance();
-
-      delays(500);
-      servo.write(90);
-      delays(1000);
-      if(rightDistance > leftDistance) {
-        right();
-        delays(360);
-      } else if(rightDistance < leftDistance) {
-        left();
-        delays(360);
-      } else if((rightDistance <= 40) || (leftDistance <= 40)) {
-        back();
-        delays(180);
-      } else {
-        forward();
-      }
-    } else {
-        forward();
-    }
-  }
-}
-
-*/
-
-
 
 const float RANGEWALLDETECTION = 15;//au début on détecte le mur a suivre au départ si il est a tant de cm
 const float DISTWALL = 15;//la distance entre le robot et le mur.
@@ -89,7 +45,7 @@ void setup() {
     myservo.write(180);
     position.x = 0;
     position.y = 0;
-    angle = M_PI / 2; // le robot 
+    angle = M_PI / 2; // le robot
     &room = InitMap(&room);
     currentState = FindingWall;
     //on avance
